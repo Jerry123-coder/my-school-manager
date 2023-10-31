@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { teachers } from '../data/teachers';
 import { AiOutlineSearch } from 'react-icons/ai'
 
-const TeachersTable: React.FC = () => {
+const TeachersTable: React.FC = ({ handleProfileOpen }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredTeachers, setFilteredTeachers] = useState(teachers);
   const [filterBy, setFilterBy] = useState<keyof Teacher>('name'); // Default filter property is 'name'
@@ -85,6 +85,7 @@ const TeachersTable: React.FC = () => {
             <tr
               key={teacher.id}
               className={`${index % 2 === 1 ? 'bg-[#070d33]/10' : 'bg-white'} cursor-pointer hover:bg-blue-300 transition duration-300 ease-in font-semibold px-4`}
+              onClick={() => handleProfileOpen(teacher)}
             >
               <td className="border px-4 py-2">{teacher.id}</td>
               <td className="border px-4 py-2">{teacher.name}</td>

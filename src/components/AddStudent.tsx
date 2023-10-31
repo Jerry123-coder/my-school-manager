@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { GrAddCircle } from "react-icons/gr";
+import Papa from 'papaparse';
 
 const AddStudent = ({ onClose }) => {
   const [students, setStudents] = useState([]);
@@ -21,10 +22,41 @@ const AddStudent = ({ onClose }) => {
     setNewStudent({ ...newStudent, [name]: value });
   };
 
-  const handleImportCSV = (e) => {
-    // Implement CSV import and JSON conversion here
-    // You can use a library like 'papaparse' to parse the CSV file
-  };
+  
+  // const handleImportCSV = (e) => {
+  //   const file = e.target.files[0];
+    
+  //   if (file) {
+  //     Papa.parse(file, {
+  //       complete: (result) => {
+  //         if (result.data && result.data.length > 0) {
+  //           const csvData = result.data;
+
+  //           // Assuming the CSV has columns like "Full Name," "Email," "Gender," etc.
+  //           if (csvData[0].includes("Full Name")) {
+  //             const [fullNameIndex, emailIndex, genderIndex, ...] = csvData[0].map((header) =>
+  //               header.toLowerCase()
+  //             );
+
+  //             // Start from index 1 to skip the header row
+  //             for (let i = 1; i < csvData.length; i++) {
+  //               const newTeacherData = {
+  //                 fullName: csvData[i][fullNameIndex],
+  //                 email: csvData[i][emailIndex],
+  //                 gender: csvData[i][genderIndex],
+  //                 // Map other fields accordingly
+  //               };
+
+  //               // Add the new teacher data to the state
+  //               setTeachers([...teachers, newTeacherData]);
+  //             }
+  //           }
+  //         }
+  //       },
+  //       header: true,
+  //     });
+  //   }
+  // };
 
   const handleAddAnotherTeacher = () => {
     setStudents([...students, newStudent]);
@@ -66,7 +98,7 @@ const AddStudent = ({ onClose }) => {
             <div className="w-full flex justify-between">
               <h2 className="text-4xl font-bold text-white">Add students</h2>
               <button
-                onClick={handleImportCSV}
+                // onClick={handleImportCSV}
                 className="bg-[#070d33] focus:outline-none hover:bg-blue-400 hover:text-[#070d33] font-bold  text-white my-10 transition duration-300 ease-in"
               >
                 Import CSV

@@ -1,13 +1,27 @@
 import React, { useState } from 'react'
 import StudentsTable from '../../components/StudentsTable'
 import AddStudent from '../../components/AddStudent'
+import StudentProfile from '../../components/StudentProfile'
 
 const AdminStudents = () => {
   const [addStudent, setAddStudent]=useState<boolean>(false)
+  const [profileOpen, setProfileOpen] = useState<boolean>(false);
+  const [selectedStudent, setSelectedStudent] = useState<any | null>(null);
 
-  const handleAddTeacher = () => {
+  const handleAddStudent = () => {
     setAddStudent(!addStudent)
   }
+
+  const handleProfileOpen = (user) => {
+    setSelectedTeacher(user);
+    setProfileOpen(true);
+  };
+
+  const handleProfileClose = () => {
+    setProfileOpen(false);
+  };
+
+
   return (
     <div className="p-24">
       <div className="flex items-center gap-5 cursor-pointer justify-end">
@@ -16,7 +30,7 @@ const AdminStudents = () => {
           Export CSV
         </button>
         <button 
-        onClick={handleAddTeacher}
+        onClick={handleAddStudent}
         className="bg-[#070d33] hover:bg-blue-400 hover:text-[#070d33] text-white font-semibold transition duration-300 ease-in">
           Add Students
         </button>
@@ -25,11 +39,21 @@ const AdminStudents = () => {
       {
         addStudent && (
           <AddStudent
-           onClose={handleAddTeacher}
+           onClose={handleAddStudent}
           />
         )
       }
-      <StudentsTable />
+
+      {profileOpen ? (<StudentProfile
+          user={selectedStudent}
+          onClose={handleProfileClose}
+          // onImageChange={handleImageChange}
+        />):(
+          ''
+        )
+        
+      }
+      <StudentsTable handleProfileOpen={handleProfileOpen}/>
     </div>
   );
 }
